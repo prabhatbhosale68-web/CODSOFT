@@ -41,24 +41,43 @@ public class CurrencyConverter {
 
         Scanner sc = new Scanner(System.in);
 
-        try {
-            System.out.print("Enter base currency (USD, INR, EUR): ");
-            String base = sc.next().toUpperCase();
+        while (true) {
+            try {
+                System.out.println("\n===== Currency Converter =====");
+                System.out.println("Type EXIT anytime to quit.");
 
-            System.out.print("Enter target currency: ");
-            String target = sc.next().toUpperCase();
+                System.out.print("Enter base currency (USD, INR, EUR): ");
+                String base = sc.next().toUpperCase();
+                if (base.equals("EXIT")) {
+                    System.out.println("👋 Exiting program...");
+                    break;
+                }
 
-            System.out.print("Enter amount: ");
-            double amount = sc.nextDouble();
+                System.out.print("Enter target currency: ");
+                String target = sc.next().toUpperCase();
+                if (target.equals("EXIT")) {
+                    System.out.println("👋 Exiting program...");
+                    break;
+                }
 
-            double rate = fetchRate(base, target);
-            double converted = amount * rate;
+                System.out.print("Enter amount: ");
+                String amountInput = sc.next();
+                if (amountInput.equalsIgnoreCase("EXIT")) {
+                    System.out.println("👋 Exiting program...");
+                    break;
+                }
 
-            System.out.println("\n💱 Converted Amount:");
-            System.out.println(amount + " " + base + " = " + converted + " " + target);
+                double amount = Double.parseDouble(amountInput);
 
-        } catch (Exception e) {
-            System.out.println("❌ Error: Invalid currency or internet issue.");
+                double rate = fetchRate(base, target);
+                double converted = amount * rate;
+
+                System.out.println("\n💱 Converted Amount:");
+                System.out.println(amount + " " + base + " = " + converted + " " + target);
+
+            } catch (Exception e) {
+                System.out.println("❌ Error: Invalid currency or internet issue.");
+            }
         }
 
         sc.close();
